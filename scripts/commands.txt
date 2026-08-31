@@ -1,0 +1,23 @@
+sudo -u postgres createdb project_deb
+sudo -u postgres psql -l
+
+npm install @prisma/adapter-pg pg
+
+
+/********
+-> install postgres
+-> sudo apt install postgres
+-> sudo -u postgres createdb ghss
+
+* git clone
+* cd ghss
+* npm install
+* create .env file
+* copy from sample.env
+* apply the migrations: 
+* cd packages/database
+* npx prisma migrate dev
+* npx prisma generate
+* npm run build (the db package)
+
+

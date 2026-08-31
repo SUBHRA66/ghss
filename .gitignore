@@ -1,0 +1,129 @@
+# =========================================================
+# Dependencies
+# =========================================================
+
+node_modules/
+.pnp/
+.pnp.js
+
+
+# =========================================================
+# Environment / Secrets
+# =========================================================
+
+.env
+.env.*
+!.env.example
+
+# Local environment overrides
+*.local
+
+
+# =========================================================
+# Build / Compiled output
+# =========================================================
+
+dist/
+build/
+out/
+
+# TypeScript incremental build files
+*.tsbuildinfo
+
+
+# =========================================================
+# NestJS
+# =========================================================
+
+# NestJS debug logs
+nest-debug.log
+nest-error.log
+
+
+# =========================================================
+# Prisma
+# =========================================================
+
+# Prisma generated client
+# (Only needed if you generate it into a custom location)
+# prisma/generated/
+
+# Prisma local/debug files
+*.prisma
+
+
+# =========================================================
+# Logs
+# =========================================================
+
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# =========================================================
+# Coverage
+# =========================================================
+
+coverage/
+.nyc_output/
+
+
+# =========================================================
+# React / Frontend
+# =========================================================
+
+# Common frontend build output
+.cache/
+.parcel-cache/
+.vite/
+
+# React / Next / other possible frontend output
+.next/
+.nuxt/
+.svelte-kit/
+
+
+# =========================================================
+# Testing
+# =========================================================
+
+test-results/
+playwright-report/
+blob-report/
+
+
+# =========================================================
+# OS files
+# =========================================================
+
+.DS_Store
+Thumbs.db
+
+
+# =========================================================
+# IDE / Editors
+# =========================================================
+
+.idea/
+.vscode/
+
+# Keep VS Code shared project configuration if desired
+!.vscode/extensions.json
+!.vscode/settings.json
+
+*.swp
+*.swo
+
+
+# =========================================================
+# Temporary files
+# =========================================================
+
+tmp/
+temp/
+*.tmp
+*.temp
