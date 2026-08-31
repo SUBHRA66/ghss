@@ -17,6 +17,9 @@ when creating a service: nest new service-name --skip-git
 * copy from sample.env
 * apply the migrations: 
 * cd packages/database
+* make sure you set up your correct credential. go inside the postgres shell using the command -> sudo -u postgres psql
+* then change the password from inside the shell : ALTER USER postgres WITH PASSWORD 'your_password';
+* make sure the .env file has the updated db connection url
 * npx prisma migrate dev
 * npx prisma generate
 * npm run build (the db package)
