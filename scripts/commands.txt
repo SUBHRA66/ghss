@@ -3,6 +3,7 @@ sudo -u postgres psql -l
 
 npm install @prisma/adapter-pg pg
 
+when creating a service: nest new service-name --skip-git
 
 /********
 -> install postgres
