@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@ghss/database": "*",
+    "@ghss/shared": "^1.0.0",
     "@nestjs/common": "^12.0.1",
     "@nestjs/core": "^12.0.1",
     "@nestjs/jwt": "^12.0.1",

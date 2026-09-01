@@ -18,24 +18,25 @@ export class AuthService {
   ) {}
 
   async validateAdmin(dto: LoginDto) {
-    const admin = await this.prisma.admin.findUnique({
+    const admin = await this.admin.findUnique({
       where: { email: dto.email.toLowerCase() },
     });
 
     if (!admin || !admin.isActive) {
-      throw new UnauthorizedException('Invalid email or password');
+      throw new UnauthorizedException('Unauthorized');
     }
 
-    const isPasswordValid = await argon2.verify(admin.hash, dto.password);
+    const isPasswordValid = await argon2.verify (admin.hash, dto.password);
+
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid email or password');
+      throw new UnauthorizedException('Unauthorized');
     }
 
     return admin;
   }
 
   async login(dto: LoginDto) {
-    const admin = await this.validateAdmin(dto);
+    const admin = await this.validateAdmin (dto);
 
     const payload: AdminJwtPayload = {
       sub: admin.adminId,
