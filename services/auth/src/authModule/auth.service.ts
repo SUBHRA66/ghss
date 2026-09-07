@@ -121,4 +121,25 @@ export class AuthService {
       path: '/api/auth/refresh',
     };
   }
+
+  async getAdminProfile(adminId: string) {
+    const admin = await this.prisma.admin.findUnique({
+      where: { adminId },
+      select: {
+        adminId: true,
+        name: true,
+        email: true,
+        isActive: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    if (!admin || !admin.isActive) {
+      throw new UnauthorizedException('Admin not found or inactive');
+    }
+
+    return admin;
+  }
 }
+

@@ -1,21 +1,27 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
   Req,
   Res,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import type { Request, Response } from 'express';
+import { CurrentAdmin, JwtAuthGuard, Public } from '@ghss/common-auth';
+import type { AuthenticatedAdminPayload } from '@ghss/common-auth';
 import { AuthService } from './auth.service.js';
 import { LoginDto } from './dto/auth.dto.js';
 
 @Controller('auth')
+@UseGuards(JwtAuthGuard)
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
+  @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(
@@ -24,12 +30,13 @@ export class AuthController {
   ) {
     const { admin, accessToken, refreshToken } = await this.authService.login(dto);
 
-    res.cookie('access_token', accessToken, this.authService.getAccessTokenCookieOptions ());
-    res.cookie('refresh_token', refreshToken, this.authService.getRefreshTokenCookieOptions ());
+    res.cookie('access_token', accessToken, this.authService.getAccessTokenCookieOptions());
+    res.cookie('refresh_token', refreshToken, this.authService.getRefreshTokenCookieOptions());
 
     return admin;
   }
 
+  @Public()
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
   async refresh(
@@ -57,5 +64,10 @@ export class AuthController {
     res.clearCookie('refresh_token', { path: '/api/auth/refresh' });
 
     return { message: 'Logged out successfully' };
+  }
+
+  @Get('me')
+  async me(@CurrentAdmin() admin: AuthenticatedAdminPayload) {
+    return this.authService.getAdminProfile(admin.sub);
   }
 }
