@@ -3,10 +3,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { PrismaModule } from '@ghss/database';
 import { AuthController } from './auth.controller.js';
 import { AuthService } from './auth.service.js';
+import { ApiClientModule } from '@ghss/api-client';
 
 @Module({
   imports: [
     PrismaModule,
+    ApiClientModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'ghss-default-jwt-secret-change-in-production',
       signOptions: {
