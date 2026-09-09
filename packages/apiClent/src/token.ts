@@ -1,0 +1,1 @@
+export const ADMIN_API_CLIENT = 'ADMIN_API_CLIENT';
