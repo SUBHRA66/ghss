@@ -1,28 +1,30 @@
 import { Module } from '@nestjs/common';
-import { ApiClient } from './api-client';
-import { AdminApi } from './admin.api';
-import { ADMIN_API_CLIENT } from './token';
+import { ApiClient } from './api-client.js';
+import { AdminApi } from './admin.api.js';
+import { StudentsApi } from './student.api.js';
+import { ADMIN_API_CLIENT, STUDENT_API_CLIENT } from './token.js';
 
 @Module({
   providers: [
-    { 
+    {
       provide: ADMIN_API_CLIENT,
       useFactory: () => {
-        return new ApiClient ({
-          baseUrl: 'http://localhost:9999',
-      }),
+        return new ApiClient({
+          baseURL: 'http://localhost:9999',
+        });
+      },
     },
-    { 
+    {
       provide: STUDENT_API_CLIENT,
       useFactory: () => {
-        return new ApiClient ({
-          baseUrl: 'http://localhost:8888',
-      }),
+        return new ApiClient({
+          baseURL: 'http://localhost:8888',
+        });
+      },
     },
-    AdminAPi,
+    AdminApi,
     StudentsApi,
   ],
-  exports: [AdminApi]
+  exports: [AdminApi, StudentsApi, ADMIN_API_CLIENT, STUDENT_API_CLIENT],
 })
-ApiClientModule {};
-
+export class ApiClientModule {}

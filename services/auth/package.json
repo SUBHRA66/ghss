@@ -22,6 +22,7 @@
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts"
   },
   "dependencies": {
+    "@ghss/api-client": "*",
     "@ghss/common-auth": "*",
     "@ghss/database": "*",
     "@nestjs/common": "^12.0.1",
