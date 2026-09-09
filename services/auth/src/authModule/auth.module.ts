@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PrismaModule } from '@ghss/database';
+import { CommonAuthModule, getPrivateKey, getPublicKey } from '@ghss/common-auth';
 import { AuthController } from './auth.controller.js';
 import { AuthService } from './auth.service.js';
 import { ApiClientModule } from '@ghss/api-client';
@@ -9,11 +10,19 @@ import { ApiClientModule } from '@ghss/api-client';
   imports: [
     PrismaModule,
     ApiClientModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET || 'ghss-default-jwt-secret-change-in-production',
-      signOptions: {
-        expiresIn: '15m',
-      },
+    CommonAuthModule,
+    JwtModule.registerAsync({
+      useFactory: () => ({
+        privateKey: getPrivateKey(),
+        publicKey: getPublicKey(),
+        signOptions: {
+          algorithm: 'RS256',
+          expiresIn: '15m',
+        },
+        verifyOptions: {
+          algorithms: ['RS256'],
+        },
+      }),
     }),
   ],
   controllers: [AuthController],
@@ -21,3 +30,4 @@ import { ApiClientModule } from '@ghss/api-client';
   exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
+
