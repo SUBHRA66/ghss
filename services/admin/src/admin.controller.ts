@@ -12,7 +12,7 @@ import {
 import { AdminService } from './admin.service.js';
 import { CreateAdminDto, UpdateAdminDto } from './dto/admin.dto.js';
 
-@Controller('admins')
+@Controller(['admins', 'admin'])
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
