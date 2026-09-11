@@ -14,7 +14,7 @@ import type { Request, Response } from 'express';
 import { CurrentAdmin, JwtAuthGuard, Public } from '@ghss/common-auth';
 import type { AuthenticatedAdminPayload } from '@ghss/common-auth';
 import { AuthService } from './auth.service.js';
-import { LoginDto } from './dto/auth.dto.js';
+import { LoginDto } from './auth.dto.js';
 
 @Controller('auth')
 @UseGuards(JwtAuthGuard)
