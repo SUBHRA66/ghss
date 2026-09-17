@@ -27,6 +27,11 @@ export class AdminController {
     return this.adminService.findAll();
   }
 
+  @Get('by-email/:email')
+  findByEmail(@Param('email') email: string) {
+    return this.adminService.findByEmail(email);
+  }
+
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.adminService.findById(id);

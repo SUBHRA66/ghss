@@ -7,10 +7,14 @@ export class AdminApi {
   constructor(
     @Inject(ADMIN_API_CLIENT)
     private readonly apiClient: ApiClient,
-  ) {}
+  ) { }
 
   getAdmin(adminId: string) {
     return this.apiClient.get(`/admin/${adminId}`);
+  }
+
+  getAdminByEmail(email: string) {
+    return this.apiClient.get(`/admin/by-email/${encodeURIComponent(email)}`);
   }
 }
 

@@ -22,6 +22,15 @@ export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
   @Public()
+  @Get('testme')
+  testMe() {
+    return {
+      msg: 'tested succesfully',
+      status: 'ok'
+    }
+  }
+
+  @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(

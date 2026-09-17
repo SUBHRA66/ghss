@@ -10,7 +10,7 @@ import { ADMIN_API_CLIENT, STUDENT_API_CLIENT } from './token.js';
       provide: ADMIN_API_CLIENT,
       useFactory: () => {
         return new ApiClient({
-          baseURL: 'http://localhost:9999',
+          baseURL: 'http://localhost:9001',
         });
       },
     },
@@ -18,7 +18,7 @@ import { ADMIN_API_CLIENT, STUDENT_API_CLIENT } from './token.js';
       provide: STUDENT_API_CLIENT,
       useFactory: () => {
         return new ApiClient({
-          baseURL: 'http://localhost:8888',
+          baseURL: 'http://localhost:9002',
         });
       },
     },
@@ -27,4 +27,4 @@ import { ADMIN_API_CLIENT, STUDENT_API_CLIENT } from './token.js';
   ],
   exports: [AdminApi, StudentsApi, ADMIN_API_CLIENT, STUDENT_API_CLIENT],
 })
-export class ApiClientModule {}
+export class ApiClientModule { }

@@ -14,7 +14,7 @@ async function bootstrap() {
     }),
   );
 
-  const port = process.env.PORT ?? 3003;
+  const port = process.env.PORT ?? 9001;
   await app.listen(port);
   console.log(`Admin service is running on http://localhost:${port}`);
 }

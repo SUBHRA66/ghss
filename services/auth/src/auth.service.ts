@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '@ghss/database';
+import { AdminApi } from '@ghss/api-client';
 import * as argon2 from 'argon2';
 import { LoginDto } from './auth.dto.js';
 
@@ -14,13 +15,17 @@ export interface AdminJwtPayload {
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
+    private readonly adminApi: AdminApi,
     private readonly jwtService: JwtService,
   ) { }
 
   async validateAdmin(dto: LoginDto) {
-    const admin = await this.prisma.admin.findUnique({
-      where: { email: dto.email.toLowerCase() },
-    });
+    let admin: any;
+    try {
+      admin = await this.adminApi.getAdminByEmail(dto.email);
+    } catch {
+      throw new UnauthorizedException('Invalid email or password');
+    }
 
     if (!admin || !admin.isActive) {
       throw new UnauthorizedException('Invalid email or password');
