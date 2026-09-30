@@ -2,12 +2,6 @@ server {
     listen 80;
     server_name xander.local;
 
-
-    # static file serve
-    root /home/rocket/ghss/static/dashboard;
-    index index.html;
-
-
     # Auth service
     location /api/auth/ {
     	rewrite ^/api/(.*)$ /$1 break;

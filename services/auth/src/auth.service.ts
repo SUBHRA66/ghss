@@ -66,7 +66,7 @@ export class AuthService {
       refreshToken,
     };
   }
-
+/*
   async refresh(refreshToken: string) {
     try {
       const payload = await this.jwtService.verifyAsync<AdminJwtPayload>(refreshToken);
@@ -106,7 +106,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid or expired refresh token');
     }
   }
-
+*/
   getAccessTokenCookieOptions() {
     return {
       httpOnly: true,
@@ -126,7 +126,7 @@ export class AuthService {
       path: '/api/auth/refresh',
     };
   }
-
+/*
   async getAdminProfile(adminId: string) {
     const admin = await this.prisma.admin.findUnique({
       where: { adminId },
@@ -145,6 +145,6 @@ export class AuthService {
     }
 
     return admin;
-  }
+  }*/
 }
 

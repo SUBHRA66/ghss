@@ -45,6 +45,7 @@ export class AuthController {
     return admin;
   }
 
+/*
   @Public()
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
@@ -79,4 +80,5 @@ export class AuthController {
   async me(@CurrentAdmin() admin: AuthenticatedAdminPayload) {
     return this.authService.getAdminProfile(admin.sub);
   }
+*/
 }

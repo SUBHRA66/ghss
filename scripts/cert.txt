@@ -1,0 +1,2 @@
+ sudo mkcert -key-file xander.local-key.pem -cert-file xander.local.pem xander.local localhost 127.0.0.1
+
