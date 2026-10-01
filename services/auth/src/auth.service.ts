@@ -43,9 +43,9 @@ export class AuthService {
     const admin = await this.validateAdmin(dto);
 
     const payload: AdminJwtPayload = {
-      sub: admin.adminId,
-      email: admin.email,
-      name: admin.name,
+      sub   : admin.adminId,
+      email : admin.email,
+      name  : admin.name,
     };
 
     const accessToken = await this.jwtService.signAsync(payload, {
@@ -66,47 +66,7 @@ export class AuthService {
       refreshToken,
     };
   }
-/*
-  async refresh(refreshToken: string) {
-    try {
-      const payload = await this.jwtService.verifyAsync<AdminJwtPayload>(refreshToken);
 
-      const admin = await this.prisma.admin.findUnique({
-        where: { adminId: payload.sub },
-      });
-
-      if (!admin || !admin.isActive) {
-        throw new UnauthorizedException('Invalid or expired refresh token');
-      }
-
-      const newPayload: AdminJwtPayload = {
-        sub: admin.adminId,
-        email: admin.email,
-        name: admin.name,
-      };
-
-      const newAccessToken = await this.jwtService.signAsync(newPayload, {
-        expiresIn: '15m',
-      });
-
-      const newRefreshToken = await this.jwtService.signAsync(newPayload, {
-        expiresIn: '7d',
-      });
-
-      return {
-        accessToken: newAccessToken,
-        refreshToken: newRefreshToken,
-        admin: {
-          adminId: admin.adminId,
-          name: admin.name,
-          email: admin.email,
-        },
-      };
-    } catch {
-      throw new UnauthorizedException('Invalid or expired refresh token');
-    }
-  }
-*/
   getAccessTokenCookieOptions() {
     return {
       httpOnly: true,
@@ -126,25 +86,5 @@ export class AuthService {
       path: '/api/auth/refresh',
     };
   }
-/*
-  async getAdminProfile(adminId: string) {
-    const admin = await this.prisma.admin.findUnique({
-      where: { adminId },
-      select: {
-        adminId: true,
-        name: true,
-        email: true,
-        isActive: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
-
-    if (!admin || !admin.isActive) {
-      throw new UnauthorizedException('Admin not found or inactive');
-    }
-
-    return admin;
-  }*/
 }
 

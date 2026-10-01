@@ -5,9 +5,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Req,
   Res,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import type { Request, Response } from 'express';
@@ -25,7 +23,7 @@ export class AuthController {
   @Get('testme')
   testMe() {
     return {
-      msg: 'tested succesfully',
+      msg: 'TESTED SUCCESSFULLY, RUNNING FINE',
       status: 'ok'
     }
   }
@@ -45,40 +43,4 @@ export class AuthController {
     return admin;
   }
 
-/*
-  @Public()
-  @Post('refresh')
-  @HttpCode(HttpStatus.OK)
-  async refresh(
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    const refreshToken = req.cookies?.['refresh_token'];
-    if (!refreshToken) {
-      throw new UnauthorizedException('Refresh token is missing');
-    }
-
-    const { admin, accessToken, refreshToken: newRefreshToken } =
-      await this.authService.refresh(refreshToken);
-
-    res.cookie('access_token', accessToken, this.authService.getAccessTokenCookieOptions());
-    res.cookie('refresh_token', newRefreshToken, this.authService.getRefreshTokenCookieOptions());
-
-    return admin;
-  }
-
-  @Post('logout')
-  @HttpCode(HttpStatus.OK)
-  logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('access_token', { path: '/' });
-    res.clearCookie('refresh_token', { path: '/api/auth/refresh' });
-
-    return { message: 'Logged out successfully' };
-  }
-
-  @Get('me')
-  async me(@CurrentAdmin() admin: AuthenticatedAdminPayload) {
-    return this.authService.getAdminProfile(admin.sub);
-  }
-*/
 }

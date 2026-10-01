@@ -1,41 +1,69 @@
+# HTTP → HTTPS
 server {
     listen 80;
     server_name xander.local;
 
+    return 301 https://$host$request_uri;
+}
+
+
+# HTTPS
+server {
+    listen 443 ssl;
+    server_name xander.local;
+
+    ssl_certificate     /etc/nginx/ssl/xander.local.pem;
+    ssl_certificate_key /etc/nginx/ssl/xander.local-key.pem;
+
+
+    # static files
+    location / {
+        root /home/rocket/ghss/static/dashboard;
+	try_files $uri $uri/ /index.html;
+    }
+    
+    location = /auth {
+	return 301 /auth/;
+    }
+
+    location /auth/ {
+	alias /home/rocket/ghss/static/auth/;
+    }
+
+
     # Auth service
     location /api/auth/ {
-    	rewrite ^/api/(.*)$ /$1 break;
-    	proxy_pass http://localhost:9000;
+        rewrite ^/api/(.*)$ /$1 break;
+        proxy_pass http://localhost:9000;
 
-    	proxy_http_version 1.1;
-    	proxy_set_header Host $host;
-    	proxy_set_header X-Real-IP $remote_addr;
-    	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    	proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 
     # Admin service
     location /api/admin/ {
-    	rewrite ^/api/(.*)$ /$1 break;
-    	proxy_pass http://localhost:9001;
+        rewrite ^/api/(.*)$ /$1 break;
+        proxy_pass http://localhost:9001;
 
-    	proxy_http_version 1.1;
-    	proxy_set_header Host $host;
-    	proxy_set_header X-Real-IP $remote_addr;
-    	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    	proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 
-
+    # Student service
     location /api/student/ {
-    	rewrite ^/api/(.*)$ /$1 break;
-    	proxy_pass http://localhost:9002;
+        rewrite ^/api/(.*)$ /$1 break;
+        proxy_pass http://localhost:9002;
 
-    	proxy_http_version 1.1;
-    	proxy_set_header Host $host;
-    	proxy_set_header X-Real-IP $remote_addr;
-    	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    	proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
-
 }
